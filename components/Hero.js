@@ -2,62 +2,93 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap, prefersReduced } from "../lib/gsap";
-import { BRAND } from "../lib/brand";
+import { BRAND, waLink } from "../lib/brand";
 import Split from "./Split";
 import EmberField from "./EmberField";
 import Briquette3D from "./Briquette3D";
 
+const HERO_SPECS = [
+  ["3,800–4,400", "kcal/kg calorific value"],
+  ["Below 10%", "Moisture all grades"],
+  ["60 / 70 / 90 mm", "Briquette logs"],
+  ["6 / 8 mm", "Biomass pellets"],
+];
+
 export default function Hero() {
   const ref = useRef(null);
+
   useEffect(() => {
     if (prefersReduced()) return;
     const el = ref.current;
+    if (!el) return;
     const q = gsap.utils.selector(el);
-    gsap.set(q(".hero-fade"), { y: 24, autoAlpha: 0 });
-    gsap.set(q(".bq-wrap"), { scale: 0.7, autoAlpha: 0 });
+    gsap.set(q(".hero-fade"), { y: 18, autoAlpha: 0 });
+    gsap.set(q(".bq-wrap"), { scale: 0.85, autoAlpha: 0 });
+
     const play = () => {
-      gsap.to(q(".hero-fade"), { y: 0, autoAlpha: 1, duration: 1, stagger: 0.1, delay: 0.4, ease: "power3.out" });
-      gsap.to(q(".bq-wrap"), { scale: 1, autoAlpha: 1, duration: 1.5, delay: 0.15, ease: "expo.out" });
+      gsap.to(q(".hero-fade"), { y: 0, autoAlpha: 1, duration: 0.85, stagger: 0.08, delay: 0.25, ease: "power3.out" });
+      gsap.to(q(".bq-wrap"), { scale: 1, autoAlpha: 1, duration: 1.2, delay: 0.1, ease: "expo.out" });
     };
+
     if (document.documentElement.classList.contains("is-ready") || window.__hnPreloaded) play();
     else window.addEventListener("hn:ready", play, { once: true });
-    const par = gsap.to(q(".hero-copy"), {
-      yPercent: -12,
-      autoAlpha: 0.2,
-      ease: "none",
-      scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: true },
-    });
+
     return () => {
       window.removeEventListener("hn:ready", play);
-      par.scrollTrigger?.kill();
-      par.kill();
     };
   }, []);
 
   return (
     <section className="hero" ref={ref} aria-label="Introduction">
-      <div className="hero-bg" aria-hidden="true" />
+      <div className="hero-bg" aria-hidden="true">
+        <img
+          src="/img/flame.webp"
+          alt=""
+          className="hero-photo"
+          loading="eager"
+          decoding="async"
+          width="1600"
+          height="900"
+        />
+        <div className="hero-scrim" />
+      </div>
       <EmberField />
       <Briquette3D />
+
       <div className="hero-copy wrap">
-        <p className="eyebrow hero-fade"><span className="dot" />Biomass briquettes & pellets · {BRAND.region}</p>
-        <Split as="h1" className="hero-h" lines={BRAND.heroLines} onReady delay={0.1} />
+        <p className="eyebrow hero-fade">
+          <span className="dot" />
+          {BRAND.name} · Biomass Briquettes &amp; Pellets
+        </p>
+        <Split as="h1" className="hero-h" lines={BRAND.heroLines} onReady delay={0.05} />
         <p className="hero-sub hero-fade">
-          White-coal briquettes and pellets pressed from sawdust, rice husk and farm residue — a cleaner, renewable replacement for coal in your boiler, kiln or furnace.
+          Biomass briquettes and pellets made from crop and wood residue for industrial boilers, kilns and furnaces.
         </p>
         <div className="hero-ctas hero-fade">
           <a href="#contact" className="btn btn-ember" data-magnetic>
             Get a quote<Arrow />
           </a>
           <Link href="/products" className="btn btn-ghost" data-magnetic>
-            Explore products
+            View products
           </Link>
+          <a
+            href={waLink(`Hello ${BRAND.name}, I'd like a quote for biomass briquettes.`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero-wa-link"
+          >
+            WhatsApp us ↗
+          </a>
         </div>
       </div>
-      <div className="hero-foot wrap hero-fade">
-        <span>Typical 3,800–4,400 kcal/kg</span>
-        <span className="hide-sm">60·70·90 mm logs & 6–8 mm pellets</span>
-        <span className="scroll-cue"><i />Scroll</span>
+
+      <div className="hero-specs wrap hero-fade" aria-label="Key fuel specifications">
+        {HERO_SPECS.map(([val, lbl]) => (
+          <div className="hs-item" key={val}>
+            <b>{val}</b>
+            <span>{lbl}</span>
+          </div>
+        ))}
       </div>
     </section>
   );

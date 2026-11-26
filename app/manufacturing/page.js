@@ -20,7 +20,10 @@ export default function ManufacturingPage() {
     <>
       <Header />
       <main className="page-main">
-        <section className="page-hero">
+        <section className="page-hero has-banner">
+          <div className="hero-banner-bg" aria-hidden="true">
+            <img src="/img/press.webp" alt="" loading="eager" decoding="async" />
+          </div>
           <div className="wrap">
             <p className="eyebrow" data-reveal>Manufacturing</p>
             <Split as="h1" className="h2" text="Seven stages from farm waste to fuel." />

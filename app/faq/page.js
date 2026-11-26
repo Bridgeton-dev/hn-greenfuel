@@ -33,7 +33,10 @@ export default function FaqPage() {
     <>
       <Header />
       <main className="page-main">
-        <section className="page-hero">
+        <section className="page-hero has-banner">
+          <div className="hero-banner-bg" aria-hidden="true">
+            <img src="/img/raw.webp" alt="" loading="eager" decoding="async" />
+          </div>
           <div className="wrap">
             <p className="eyebrow" data-reveal>Frequently asked questions</p>
             <Split as="h1" className="h2" text="Straight answers for plant buyers." />

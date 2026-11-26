@@ -6,20 +6,29 @@ import { STEPS } from "../lib/data";
 import Icon from "./Icons";
 import { Arrow } from "./Hero";
 
-/* Pinned horizontal scroll of process cards; falls back to native horizontal
-   scroll on reduced motion or touch/coarse pointers. */
+/* Pinned horizontal scroll on fine-pointer desktops; vertical 5-step timeline
+   with compact thumbnails on mobile/coarse pointers so no card is cut off. */
 export default function Process() {
   const ref = useRef(null);
+
   useEffect(() => {
     const el = ref.current;
+    if (!el) return;
     const dots = [...el.querySelectorAll(".pr-dot")];
     const line = el.querySelector(".pr-line i");
     const track = el.querySelector(".pr-track");
     const dist = () => Math.max(0, track.scrollWidth - window.innerWidth + 1);
-    if (prefersReduced() || window.matchMedia("(pointer: coarse)").matches || dist() < 80) {
+
+    if (
+      prefersReduced() ||
+      window.innerWidth <= 900 ||
+      window.matchMedia("(pointer: coarse)").matches ||
+      dist() < 80
+    ) {
       el.classList.add("is-static");
       return;
     }
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -38,7 +47,21 @@ export default function Process() {
       });
       tl.to(track, { x: () => -dist(), ease: "none" }, 0).fromTo(line, { scaleX: 0 }, { scaleX: 1, ease: "none" }, 0);
       gsap.utils.toArray(".pr-card img", el).forEach((img) => {
-        gsap.fromTo(img, { xPercent: -8 }, { xPercent: 8, ease: "none", scrollTrigger: { trigger: el.querySelector(".pr-pin"), start: "top top", end: () => "+=" + dist(), scrub: true, invalidateOnRefresh: true } });
+        gsap.fromTo(
+          img,
+          { xPercent: -8 },
+          {
+            xPercent: 8,
+            ease: "none",
+            scrollTrigger: {
+              trigger: el.querySelector(".pr-pin"),
+              start: "top top",
+              end: () => "+=" + dist(),
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
       });
     }, el);
     return () => ctx.revert();
@@ -68,7 +91,7 @@ export default function Process() {
               <li className={`pr-card${s.img ? " has-img" : ""}`} key={s.n}>
                 <div className="pr-num">{s.n}</div>
                 <div className="pr-body">
-                  <span className="pr-ico"><Icon name={s.icon} size={34} /></span>
+                  <span className="pr-ico"><Icon name={s.icon} size={30} /></span>
                   <h3>{s.t}</h3>
                   <p>{s.d}</p>
                 </div>

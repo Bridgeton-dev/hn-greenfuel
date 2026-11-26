@@ -27,7 +27,10 @@ export default function ContactPage() {
     <>
       <Header />
       <main className="page-main">
-        <section className="page-hero">
+        <section className="page-hero has-banner">
+          <div className="hero-banner-bg" aria-hidden="true">
+            <img src="/img/truck.jpg" alt="" loading="eager" decoding="async" />
+          </div>
           <div className="wrap">
             <p className="eyebrow" data-reveal>Contact &amp; enquiries</p>
             <Split as="h1" className="h2" text="Request pricing, specs or a trial load." />

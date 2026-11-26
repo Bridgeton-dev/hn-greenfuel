@@ -20,7 +20,10 @@ export default function AboutPage() {
     <>
       <Header />
       <main className="page-main">
-        <section className="page-hero">
+        <section className="page-hero has-banner">
+          <div className="hero-banner-bg" aria-hidden="true">
+            <img src="/img/stack.webp" alt="" loading="eager" decoding="async" />
+          </div>
           <div className="wrap">
             <p className="eyebrow" data-reveal>About us</p>
             <Split as="h1" className="h2" text="Built to turn crop waste into steady heat." />
@@ -39,9 +42,8 @@ export default function AboutPage() {
                 Across India&apos;s farming and milling belts, thousands of tonnes of sawdust, paddy husk and crop stalks are left behind every season — often under-used or burnt in open fields. Meanwhile, local boilers, brick kilns and process plants depend on high-ash fossil coal.
               </p>
               <p className="body-p">
-                Founded in [Year — placeholder] in {BRAND.region}, {BRAND.legalName} bridges both sides: aggregating dry wood and agro-residues and compressing them mechanically into uniform 60, 70 and 90 mm briquettes and 6–8 mm pellets with no chemical binders.
+                {BRAND.legalName} bridges both sides: aggregating dry wood and agro-residues and compressing them mechanically into uniform 60, 70 and 90 mm briquettes and 6–8 mm pellets with no chemical binders.
               </p>
-              <p className="note">Plant commissioning year, installed capacity and exact site details will be updated once confirmed.</p>
             </div>
             <div className="media-frame" data-reveal>
               <img
@@ -116,19 +118,19 @@ export default function AboutPage() {
 
             <div className="card-box" data-reveal>
               <p className="eyebrow">Company details</p>
-              <h3>Registration & plant info</h3>
+              <h3>Registration &amp; plant info</h3>
               <ul className="spec-list">
                 <li><span>Legal Name</span><b>{BRAND.legalName}</b></li>
                 <li><span>Brand / Short Name</span><b>{BRAND.name}</b></li>
                 <li><span>Business</span><b>Manufacturer of biomass briquettes &amp; pellets</b></li>
-                <li><span>Region</span><b>{BRAND.region}</b></li>
-                <li><span>Monthly Capacity</span><b>{BRAND.capacity}</b></li>
-                <li><span>Works Address</span><b>{BRAND.address}</b></li>
-                <li><span>GSTIN</span><b>{BRAND.gst}</b></li>
-                <li><span>CIN</span><b>{BRAND.cin}</b></li>
-                <li><span>Phone / WhatsApp</span><b>{BRAND.phone} / {BRAND.whatsapp}</b></li>
+                {BRAND.region && <li><span>Region</span><b>{BRAND.region}</b></li>}
+                {BRAND.capacity && <li><span>Monthly Capacity</span><b>{BRAND.capacity}</b></li>}
+                {BRAND.address && <li><span>Works Address</span><b>{BRAND.address}</b></li>}
+                {BRAND.gst && <li><span>GSTIN</span><b>{BRAND.gst}</b></li>}
+                {BRAND.cin && <li><span>CIN</span><b>{BRAND.cin}</b></li>}
+                {BRAND.phone && <li><span>Phone</span><b>{BRAND.phone}</b></li>}
+                {BRAND.email && <li><span>Email</span><b>{BRAND.email}</b></li>}
               </ul>
-              <p className="note">Bracketed fields are placeholders awaiting final company entry.</p>
             </div>
           </div>
         </section>

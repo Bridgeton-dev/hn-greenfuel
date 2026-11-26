@@ -47,7 +47,9 @@ export default function PrivacyPage() {
 
             <h2>5. Contact &amp; Updates</h2>
             <p>
-              To update or delete enquiry details you previously shared, please contact us at {BRAND.email} or {BRAND.phone} (Works: {BRAND.address}).
+              To update or delete enquiry details you previously shared, please reach out to {BRAND.legalName} via our{" "}
+              <a href="/contact" style={{ color: "var(--ember-2)", textDecoration: "underline" }}>Contact page</a>
+              {BRAND.email ? ` or at ${BRAND.email}` : ""}.
             </p>
           </div>
         </section>

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Split from "../../components/Split";
@@ -9,9 +9,20 @@ import { lockScroll, unlockScroll } from "../../lib/lenis";
 export default function GalleryPage() {
   const [cat, setCat] = useState("All");
   const [idx, setIdx] = useState(-1);
+  const touchStartX = useRef(0);
 
   const items = cat === "All" ? GALLERY : GALLERY.filter((g) => g.cat === cat);
   const activeItem = idx >= 0 && idx < items.length ? items[idx] : null;
+
+  const onTouchStart = (e) => {
+    touchStartX.current = e.changedTouches[0]?.clientX || 0;
+  };
+  const onTouchEnd = (e) => {
+    const dx = (e.changedTouches[0]?.clientX || 0) - touchStartX.current;
+    if (Math.abs(dx) < 40) return;
+    if (dx < 0) setIdx((i) => (i + 1) % items.length);
+    else setIdx((i) => (i - 1 + items.length) % items.length);
+  };
 
   useEffect(() => {
     setIdx(-1);
@@ -36,7 +47,10 @@ export default function GalleryPage() {
     <>
       <Header />
       <main className="page-main">
-        <section className="page-hero">
+        <section className="page-hero has-banner">
+          <div className="hero-banner-bg" aria-hidden="true">
+            <img src="/img/pellets.webp" alt="" loading="eager" decoding="async" />
+          </div>
           <div className="wrap">
             <p className="eyebrow" data-reveal>Gallery</p>
             <Split as="h1" className="h2" text="Briquettes, machinery & feedstocks." />
@@ -101,6 +115,8 @@ export default function GalleryPage() {
           aria-modal="true"
           aria-label={activeItem.title}
           onClick={() => setIdx(-1)}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
         >
           <div className="lb-inner" onClick={(e) => e.stopPropagation()}>
             <button type="button" className="lb-close" aria-label="Close viewer" onClick={() => setIdx(-1)}>

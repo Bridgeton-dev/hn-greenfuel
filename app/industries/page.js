@@ -20,7 +20,10 @@ export default function IndustriesPage() {
     <>
       <Header />
       <main className="page-main">
-        <section className="page-hero">
+        <section className="page-hero has-banner">
+          <div className="hero-banner-bg" aria-hidden="true">
+            <img src="/img/flame.webp" alt="" loading="eager" decoding="async" />
+          </div>
           <div className="wrap">
             <p className="eyebrow" data-reveal>Industries served</p>
             <Split as="h1" className="h2" text="Built for every industrial furnace." />

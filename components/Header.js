@@ -118,10 +118,12 @@ export default function Header() {
             </Link>
           ))}
         </nav>
-        <div className="mm-foot">
-          <span>Phone: {BRAND.phone}</span>
-          <span>Email: {BRAND.email}</span>
-        </div>
+        {(BRAND.phone || BRAND.email) && (
+          <div className="mm-foot">
+            {BRAND.phone && <span>Phone: {BRAND.phone}</span>}
+            {BRAND.email && <span>Email: {BRAND.email}</span>}
+          </div>
+        )}
       </div>
     </>
   );

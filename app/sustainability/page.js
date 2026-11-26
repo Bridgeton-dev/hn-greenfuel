@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import Icon from "../../components/Icons";
 import Split from "../../components/Split";
+import CoalComparison from "../../components/CoalComparison";
 import { Arrow } from "../../components/Hero";
 import { BRAND } from "../../lib/brand";
 import { IMPACT } from "../../lib/data";
@@ -11,7 +11,7 @@ export const metadata = {
   title: "Sustainability — Stubble Burning & Waste-to-Energy",
   description:
     "How biomass briquettes curb open stubble burning, transform farm waste into clean industrial energy, and create extra income for farmers and mills.",
-  keywords: ["stubble burning solution", "waste to energy biomass", "farmer biomass income", "white coal sustainability", BRAND.region],
+  keywords: ["stubble burning solution", "waste to energy biomass", "farmer biomass income", "white coal sustainability", BRAND.region].filter(Boolean),
   alternates: { canonical: "/sustainability" },
 };
 
@@ -20,7 +20,10 @@ export default function SustainabilityPage() {
     <>
       <Header />
       <main className="page-main">
-        <section className="page-hero">
+        <section className="page-hero has-banner">
+          <div className="hero-banner-bg" aria-hidden="true">
+            <img src="/img/field.webp" alt="" loading="eager" decoding="async" />
+          </div>
           <div className="wrap">
             <p className="eyebrow leaf-t" data-reveal>Sustainability</p>
             <Split as="h1" className="h2" text="Clearer skies over farms. Cleaner fuel inside plants." />
@@ -105,6 +108,8 @@ export default function SustainabilityPage() {
             <p className="note">Illustrative example for a hypothetical ~1,000 tonne/year plant switching from coal to biomass briquettes — not a measured plant claim.</p>
           </div>
         </section>
+
+        <CoalComparison />
       </main>
       <Footer />
     </>

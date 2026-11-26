@@ -54,8 +54,21 @@ export default function Contact({ product, size, defaultKind = "quote", heading 
   const formRef = useRef(null);
   const tRef = useRef(null);
 
+  const details = [
+    BRAND.phone && ["Phone", BRAND.phoneHref ? <a href={BRAND.phoneHref}>{BRAND.phone}</a> : <b>{BRAND.phone}</b>],
+    BRAND.whatsapp && ["WhatsApp", <b>{BRAND.whatsapp}</b>],
+    BRAND.email && ["Email", isValidEmail(BRAND.email) ? <a href={`mailto:${BRAND.email}`}>{BRAND.email}</a> : <b>{BRAND.email}</b>],
+    BRAND.address && ["Works", <b>{BRAND.address}</b>],
+    BRAND.gst && ["GSTIN", <b>{BRAND.gst}</b>],
+    BRAND.cin && ["CIN", <b>{BRAND.cin}</b>],
+    BRAND.capacity && ["Capacity", <b>{BRAND.capacity}</b>],
+    BRAND.hours && ["Hours", <b>{BRAND.hours}</b>],
+  ].filter(Boolean);
+
   const applyPrefill = (prodName, sz, isTrial) => {
-    const match = OPTIONS.find((o) => o === `${prodName} · ${sz}`) || OPTIONS.find((o) => prodName && o.toLowerCase().startsWith(prodName.toLowerCase()));
+    const match =
+      OPTIONS.find((o) => o === `${prodName} · ${sz}`) ||
+      OPTIONS.find((o) => prodName && o.toLowerCase().startsWith(prodName.toLowerCase()));
     setV((o) => ({
       ...o,
       product: match || o.product,
@@ -172,26 +185,24 @@ export default function Contact({ product, size, defaultKind = "quote", heading 
           <p className="sec-lede" data-reveal>
             Tell us your boiler or kiln, monthly tonnage and delivery city. We&apos;ll recommend the right grade, diameter and a per-tonne rate.
           </p>
-          <ul className="ct-list" data-reveal>
-            <li><span>Phone</span>{BRAND.phoneHref ? <a href={BRAND.phoneHref}>{BRAND.phone}</a> : <b>{BRAND.phone}</b>}</li>
-            <li><span>WhatsApp</span><b>{BRAND.whatsapp}</b></li>
-            <li><span>Email</span>{isValidEmail(BRAND.email) ? <a href={`mailto:${BRAND.email}`}>{BRAND.email}</a> : <b>{BRAND.email}</b>}</li>
-            <li><span>Works</span><b>{BRAND.address}</b></li>
-            <li><span>GSTIN</span><b>{BRAND.gst}</b></li>
-            <li><span>CIN</span><b>{BRAND.cin}</b></li>
-            <li><span>Capacity</span><b>{BRAND.capacity}</b></li>
-            <li><span>Hours</span><b>{BRAND.hours}</b></li>
-          </ul>
+          {details.length > 0 && (
+            <ul className="ct-list" data-reveal>
+              {details.map(([label, node]) => (
+                <li key={label}><span>{label}</span>{node}</li>
+              ))}
+            </ul>
+          )}
           <div className="ct-actions" data-reveal>
             <a className="btn btn-wa" href={waLink(`Hello ${BRAND.name}, I'd like a quote for biomass briquettes.`)} target="_blank" rel="noopener noreferrer" data-magnetic>
               <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.5.1-.1.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-2-1.2c-.7-.7-1.2-1.5-1.4-1.7-.1-.2 0-.3.1-.4l.4-.5c.1-.1.2-.2.3-.4s.1-.3 0-.4c-.1-.1-.5-1.2-.7-1.7-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2 1 2.3c.1.2 1.7 2.6 4.1 3.6.6.2 1 .4 1.4.5.6.2 1.1.2 1.5.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.2-.3-.2-.5-.3Z" /></svg>
               Chat on WhatsApp
             </a>
-            <a className="btn btn-ghost" href={BRAND.mapUrl} target="_blank" rel="noopener noreferrer">
-              View location map
-            </a>
+            {BRAND.mapUrl && (
+              <a className="btn btn-ghost" href={BRAND.mapUrl} target="_blank" rel="noopener noreferrer">
+                View location map
+              </a>
+            )}
           </div>
-          <p className="note">Placeholder contact details are shown until final company phone, email, address, GSTIN and CIN are confirmed.</p>
         </div>
 
         <form className="form" ref={formRef} onSubmit={submit} noValidate data-reveal>

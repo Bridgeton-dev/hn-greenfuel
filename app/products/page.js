@@ -2,6 +2,7 @@ import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Split from "../../components/Split";
+import CoalComparison from "../../components/CoalComparison";
 import { Arrow } from "../../components/Hero";
 import { BRAND } from "../../lib/brand";
 import { PRODUCTS } from "../../lib/data";
@@ -10,7 +11,7 @@ export const metadata = {
   title: "Products — Biomass Briquettes & Pellets",
   description:
     "Explore sawdust briquettes, rice husk briquettes, agro-mix briquettes (60/70/90 mm) and biomass pellets (6/8 mm) manufactured by HN Greenfuel.",
-  keywords: ["biomass briquettes", "white coal", "sawdust briquettes", "rice husk briquettes", "agro-mix briquettes", "biomass pellets", BRAND.region],
+  keywords: ["biomass briquettes", "white coal", "sawdust briquettes", "rice husk briquettes", "agro-mix briquettes", "biomass pellets", BRAND.region].filter(Boolean),
   alternates: { canonical: "/products" },
 };
 
@@ -19,7 +20,10 @@ export default function ProductsPage() {
     <>
       <Header />
       <main className="page-main">
-        <section className="page-hero">
+        <section className="page-hero has-banner">
+          <div className="hero-banner-bg" aria-hidden="true">
+            <img src="/img/sizes.webp" alt="" loading="eager" decoding="async" />
+          </div>
           <div className="wrap">
             <p className="eyebrow" data-reveal>Products</p>
             <Split as="h1" className="h2" text="Four grades. Engineered for boilers." />
@@ -30,32 +34,29 @@ export default function ProductsPage() {
         </section>
 
         <section className="sec alt-sec">
-          <div className="wrap">
-            <div className="pgrid">
+          <div className="wrap prod-wrap">
+            <div className="pgrid-compact">
               {PRODUCTS.map((p) => (
-                <article className="pc" key={p.id} data-reveal>
-                  <div className="pc-in">
-                    <div className="pc-media">
-                      <img src={p.img} alt={p.alt} loading="lazy" decoding="async" width="800" height="600" />
+                <article className="pc-c" key={p.id} data-reveal>
+                  <Link href={`/products/${p.slug}`} className="pc-c-media">
+                    <img src={p.img} alt={p.alt} loading="lazy" decoding="async" width="800" height="600" />
+                  </Link>
+                  <div className="pc-c-body">
+                    <h2 className="pc-c-title"><Link href={`/products/${p.slug}`}>{p.name}</Link></h2>
+                    <p className="pc-c-desc">{p.blurb}</p>
+                    <div className="pc-c-spec">
+                      <span>{p.specs[0][1].replace(" kcal/kg", "")} kcal/kg</span>
+                      <span>Ash {p.specs[2][1]}</span>
                     </div>
-                    <div className="pc-body">
-                      <h3>{p.name}</h3>
-                      <p>{p.blurb}</p>
-                      <div className="badge-row">
-                        {p.sizes.map((s) => (
-                          <span key={s} className="size-tag">{s}</span>
-                        ))}
-                      </div>
-                      <ul className="mini-specs">
-                        {p.specs.slice(0, 3).map(([k, val]) => (
-                          <li key={k}><span>{k}</span><b>{val}</b></li>
-                        ))}
-                      </ul>
-                      <div className="pc-actions">
-                        <Link href={`/products/${p.slug}`} className="btn btn-ember btn-block">
-                          Specifications &amp; details <Arrow />
-                        </Link>
-                      </div>
+                    <div className="pc-c-sizes">
+                      {p.sizes.map((s) => (
+                        <span key={s} className="size-tag">{s.replace(" mm", "mm")}</span>
+                      ))}
+                    </div>
+                    <div className="pc-c-foot">
+                      <Link href={`/products/${p.slug}`} className="btn btn-ember btn-block pc-c-btn">
+                        Specs &amp; details <Arrow />
+                      </Link>
                     </div>
                   </div>
                 </article>
@@ -64,44 +65,7 @@ export default function ProductsPage() {
           </div>
         </section>
 
-        <section className="sec">
-          <div className="wrap">
-            <div className="sec-head">
-              <div>
-                <p className="eyebrow" data-reveal>Specification guide</p>
-                <h2 className="sub-h" data-reveal>Compare fuel grades side by side.</h2>
-              </div>
-              <p className="sec-lede" data-reveal>Typical working values across our four lines — contact us to arrange a trial batch for your exact boiler test.</p>
-            </div>
-            <div className="tbl-wrap" data-reveal>
-              <table className="spec-table">
-                <thead>
-                  <tr>
-                    <th>Product grade</th>
-                    <th>Diameter / sizes</th>
-                    <th>Calorific value (typical)</th>
-                    <th>Ash content</th>
-                    <th>Moisture</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {PRODUCTS.map((p) => (
-                    <tr key={p.id}>
-                      <td><strong>{p.name}</strong></td>
-                      <td>{p.sizes.join(" / ")}</td>
-                      <td>{p.specs[0][1]}</td>
-                      <td>{p.specs[2][1]}</td>
-                      <td>{p.specs[1][1]}</td>
-                      <td><Link href={`/products/${p.slug}`} className="tbl-link">View grade →</Link></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="note">Note: Values shown are typical industry ranges by feedstock; actual parameters depend on seasonal raw material and batch verification.</p>
-          </div>
-        </section>
+        <CoalComparison />
       </main>
       <Footer />
     </>

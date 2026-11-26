@@ -45,7 +45,9 @@ export default function TermsPage() {
 
             <h2>5. Contact</h2>
             <p>
-              Questions regarding these terms may be sent to {BRAND.email} or addressed to {BRAND.legalName} ({BRAND.address}).
+              Questions regarding these terms may be directed to {BRAND.legalName} via our{" "}
+              <a href="/contact" style={{ color: "var(--ember-2)", textDecoration: "underline" }}>Contact page</a>
+              {BRAND.email ? ` or at ${BRAND.email}` : ""}.
             </p>
           </div>
         </section>
