@@ -5,46 +5,87 @@ import Icon from "../../components/Icons";
 import Split from "../../components/Split";
 import { Arrow } from "../../components/Hero";
 import { BRAND } from "../../lib/brand";
-import { VALUES } from "../../lib/data";
+import { PRODUCTS } from "../../lib/data";
 
 export const metadata = {
-  title: "About Us — Biomass Fuel Manufacturer",
+  title: "About HN Greenfuel — Biomass Fuel Manufacturer",
   description:
-    "Learn about HN GREENFUEL ARGO INDUSTRIES PRIVATE LIMITED: our story, mission, vision, values, quality commitment and company details.",
-  keywords: ["HN Greenfuel", "HN GREENFUEL ARGO INDUSTRIES PRIVATE LIMITED", "biomass briquettes manufacturer", "white coal", BRAND.region],
+    "HN GREENFUEL ARGO INDUSTRIES PRIVATE LIMITED: turning farm and wood residue into practical biomass briquettes and pellets for industrial boilers, kilns and furnaces.",
+  keywords: [
+    "HN Greenfuel",
+    "HN GREENFUEL ARGO INDUSTRIES PRIVATE LIMITED",
+    "biomass briquettes manufacturer",
+    "biomass pellets",
+    "white coal",
+  ],
   alternates: { canonical: "/about" },
 };
 
+const ABOUT_VALUES = [
+  { t: "Consistency", d: "We pay attention to material, size and moisture.", icon: "press" },
+  { t: "Honesty", d: "We share clear specifications and commercial terms.", icon: "lab" },
+  { t: "Reliability", d: "We plan supply around confirmed requirements.", icon: "truck" },
+  { t: "Responsibility", d: "We encourage better use of biomass residue.", icon: "leaf" },
+  { t: "Partnership", d: "We value long-term relationships with buyers and suppliers.", icon: "collect" },
+];
+
+const WORK_STEPS = [
+  "Share your boiler type and monthly requirement.",
+  "We suggest a suitable fuel and size.",
+  "Test a trial quantity, subject to availability.",
+  "Confirm price, quality and delivery terms.",
+  "Receive supply and share your feedback.",
+];
+
 export default function AboutPage() {
+  const companyRows = [
+    ["Company Name", BRAND.legalName],
+    ["CIN", BRAND.cin],
+    ["GSTIN", BRAND.gst],
+    ["Registered Office", BRAND.registeredOffice],
+    ["Factory Address", BRAND.address],
+    ["Phone", BRAND.phone],
+    ["Email", BRAND.email],
+    ["Working Hours", BRAND.hours],
+  ].filter(([, val]) => Boolean(val));
+
   return (
     <>
       <Header />
       <main className="page-main">
+        {/* 1. Banner */}
         <section className="page-hero has-banner">
           <div className="hero-banner-bg" aria-hidden="true">
             <img src="/img/stack.webp" alt="" loading="eager" decoding="async" />
           </div>
           <div className="wrap">
             <p className="eyebrow" data-reveal>About us</p>
-            <Split as="h1" className="h2" text="Built to turn crop waste into steady heat." />
+            <Split as="h1" className="h2" text="About HN Greenfuel" />
             <p className="sec-lede" data-reveal>
-              {BRAND.legalName} ({BRAND.name}) manufactures solid biomass fuel briquettes and pellets — giving factories, boilers and kilns a cleaner alternative to fossil coal.
+              Turning farm and wood residue into practical fuel for industry.
             </p>
           </div>
         </section>
 
+        {/* 2. Introduction: Who we are & Why we do this */}
         <section className="sec alt-sec">
           <div className="wrap two-col">
-            <div data-reveal>
-              <p className="eyebrow">Company story</p>
-              <h2 className="sub-h">Practical clean fuel for working boilers.</h2>
-              <p className="body-p">
-                Across India&apos;s farming and milling belts, thousands of tonnes of sawdust, paddy husk and crop stalks are left behind every season — often under-used or burnt in open fields. Meanwhile, local boilers, brick kilns and process plants depend on high-ash fossil coal.
-              </p>
-              <p className="body-p">
-                {BRAND.legalName} bridges both sides: aggregating dry wood and agro-residues and compressing them mechanically into uniform 60, 70 and 90 mm briquettes and 6–8 mm pellets with no chemical binders.
-              </p>
+            <div className="ab-intro" data-reveal>
+              <div>
+                <p className="eyebrow">Who we are</p>
+                <h2 className="sub-h">Practical solid fuel for industrial heating.</h2>
+                <p className="body-p">
+                  HN GREENFUEL ARGO INDUSTRIES PRIVATE LIMITED is a biomass fuel company focused on briquettes and pellets. We convert agricultural and wood residue into compact solid fuel for industrial heating, as an alternative to coal in suitable boilers, kilns and furnaces.
+                </p>
+              </div>
+              <div style={{ marginTop: "2rem" }}>
+                <p className="eyebrow leaf-t">Why we do this</p>
+                <p className="body-p">
+                  Large amounts of crop and wood residue have limited use, and some is burnt in the open. At the same time, industries need dependable heat. Our work connects these two needs by turning residue into usable fuel.
+                </p>
+              </div>
             </div>
+
             <div className="media-frame" data-reveal>
               <img
                 src="/img/stack.webp"
@@ -59,78 +100,160 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* 3. Mission & Vision cards */}
         <section className="sec">
           <div className="wrap mv-grid">
             <article className="card-box" data-reveal>
-              <p className="eyebrow">Our mission</p>
-              <h3>Clean thermal energy from local residue</h3>
+              <p className="eyebrow">Mission</p>
+              <h3>Practical, consistent biomass fuel</h3>
               <p className="body-p">
-                To supply consistent, low-moisture biomass briquettes and pellets that drop cleanly into existing industrial boilers while turning agricultural and mill waste into dependable value for farmers and processors.
+                To supply practical, consistent biomass fuel and help industries reduce their dependence on fossil coal.
               </p>
             </article>
             <article className="card-box" data-reveal>
-              <p className="eyebrow leaf-t">Our vision</p>
-              <h3>Replacing coal across everyday industry</h3>
+              <p className="eyebrow leaf-t">Vision</p>
+              <h3>Value from local farm residue</h3>
               <p className="body-p">
-                To help everyday industrial heat users — from rice mills and dairies to brick kilns and textile units — transition smoothly from coal to traceable, renewable biomass fuel.
+                A cleaner industrial future where local farm residue becomes a valued energy resource.
               </p>
             </article>
           </div>
         </section>
 
+        {/* 4. Values grid */}
         <section className="sec alt-sec">
           <div className="wrap">
             <div className="sec-head">
               <div>
                 <p className="eyebrow" data-reveal>Our values</p>
-                <h2 className="sub-h" data-reveal>How we run every shift.</h2>
+                <h2 className="sub-h" data-reveal>How we work every day.</h2>
               </div>
             </div>
-            <div className="four-grid">
-              {VALUES.map((v) => (
-                <div className="card-box" key={v.t} data-reveal>
+            <div className="ab-val-grid">
+              {ABOUT_VALUES.map((v) => (
+                <article className="card-box" key={v.t} data-reveal>
                   <span className="pr-ico"><Icon name={v.icon} size={28} /></span>
                   <h3>{v.t}</h3>
                   <p className="body-p">{v.d}</p>
-                </div>
+                </article>
               ))}
             </div>
           </div>
         </section>
 
+        {/* 5. What we make (product cards) */}
         <section className="sec">
-          <div className="wrap two-col">
-            <div data-reveal>
-              <p className="eyebrow">Quality commitment</p>
-              <h2 className="sub-h">Moisture under 10%. Zero binders.</h2>
-              <p className="body-p">
-                Boiler performance depends on dry, dense fuel. Every lot is checked for moisture, raw-material cleanliness and uniform compaction before loading. We share realistic typical ranges — not inflated numbers — and encourage sample boiler trials before bulk orders.
-              </p>
-              <div className="btn-row">
-                <Link href="/quality" className="btn btn-ember" data-magnetic>
-                  Quality checks & trial request <Arrow />
-                </Link>
-                <Link href="/manufacturing" className="btn btn-ghost" data-magnetic>
-                  Manufacturing process
-                </Link>
+          <div className="wrap">
+            <div className="sec-head">
+              <div>
+                <p className="eyebrow" data-reveal>What we make</p>
+                <h2 className="sub-h" data-reveal>Biomass briquettes &amp; pellets.</h2>
+              </div>
+              <Link href="/products" className="btn btn-ghost" data-magnetic>
+                View all products <Arrow />
+              </Link>
+            </div>
+            <div className="four-grid">
+              {PRODUCTS.map((p) => (
+                <article className="card-box ab-prod-card" key={p.id} data-reveal>
+                  <div className="ab-prod-media">
+                    <img src={p.img} alt={p.alt || p.name} loading="lazy" decoding="async" width="400" height="300" />
+                  </div>
+                  <h3>{p.name}</h3>
+                  <p className="body-p">{p.blurb}</p>
+                  <div className="pc-actions">
+                    <Link href={`/products/${p.slug}`} className="tbl-link">
+                      View specifications →
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 6. How we work with you */}
+        <section className="sec alt-sec">
+          <div className="wrap">
+            <div className="sec-head">
+              <div>
+                <p className="eyebrow" data-reveal>Working together</p>
+                <h2 className="sub-h" data-reveal>How we work with you.</h2>
               </div>
             </div>
+            <ol className="ab-steps-grid">
+              {WORK_STEPS.map((step, i) => (
+                <li className="card-box ab-step-card" key={i} data-reveal>
+                  <span className="mfg-num">0{i + 1}</span>
+                  <p className="body-p">{step}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
 
+        {/* 7. Quality, Sustainability & Company Details */}
+        <section className="sec">
+          <div className="wrap mv-grid" style={{ marginBottom: "clamp(1.5rem, 3vw, 2.5rem)" }}>
+            <article className="card-box" data-reveal>
+              <p className="eyebrow">Our quality approach</p>
+              <h3>Material, moisture, size &amp; handling</h3>
+              <p className="body-p">
+                We focus on raw material selection, moisture, size and handling. Actual specifications are confirmed for each order.
+              </p>
+              <div className="pc-actions">
+                <Link href="/quality" className="tbl-link">
+                  Quality &amp; testing →
+                </Link>
+              </div>
+            </article>
+            <article className="card-box" data-reveal>
+              <p className="eyebrow leaf-t">Sustainability</p>
+              <h3>Renewable residue fuel</h3>
+              <p className="body-p">
+                Biomass is a renewable resource. Using residue as fuel can lower fossil coal use and give waste material a productive purpose. Results depend on sourcing, transport and combustion.
+              </p>
+              <div className="pc-actions">
+                <Link href="/sustainability" className="tbl-link">
+                  Sustainability overview →
+                </Link>
+              </div>
+            </article>
+          </div>
+
+          <div className="wrap">
             <div className="card-box" data-reveal>
               <p className="eyebrow">Company details</p>
-              <h3>Registration &amp; plant info</h3>
-              <ul className="spec-list">
-                <li><span>Legal Name</span><b>{BRAND.legalName}</b></li>
-                <li><span>Brand / Short Name</span><b>{BRAND.name}</b></li>
-                <li><span>Business</span><b>Manufacturer of biomass briquettes &amp; pellets</b></li>
-                {BRAND.region && <li><span>Region</span><b>{BRAND.region}</b></li>}
-                {BRAND.capacity && <li><span>Monthly Capacity</span><b>{BRAND.capacity}</b></li>}
-                {BRAND.address && <li><span>Works Address</span><b>{BRAND.address}</b></li>}
-                {BRAND.gst && <li><span>GSTIN</span><b>{BRAND.gst}</b></li>}
-                {BRAND.cin && <li><span>CIN</span><b>{BRAND.cin}</b></li>}
-                {BRAND.phone && <li><span>Phone</span><b>{BRAND.phone}</b></li>}
-                {BRAND.email && <li><span>Email</span><b>{BRAND.email}</b></li>}
-              </ul>
+              <h3>Registration &amp; contact information</h3>
+              <div className="tbl-wrap" style={{ marginTop: "0.5rem" }}>
+                <table className="spec-table ab-details-tbl">
+                  <tbody>
+                    {companyRows.map(([label, val]) => (
+                      <tr key={label}>
+                        <th scope="row">{label}</th>
+                        <td>{val}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 8. Closing enquiry banner */}
+        <section className="sec alt-sec">
+          <div className="wrap">
+            <div className="price-card" data-reveal>
+              <div>
+                <p className="eyebrow">Enquiry</p>
+                <h2 className="h2 price-h">Looking for biomass fuel? Tell us your requirement.</h2>
+              </div>
+              <div className="btn-row">
+                <Link href="/contact" className="btn btn-ember" data-magnetic>
+                  Get a Quote <Arrow />
+                </Link>
+              </div>
             </div>
           </div>
         </section>

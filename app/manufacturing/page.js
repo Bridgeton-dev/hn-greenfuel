@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import Icon from "../../components/Icons";
 import Split from "../../components/Split";
 import { Arrow } from "../../components/Hero";
 import MachineAnimation from "../../components/MachineAnimation";
+import ProcessTimeline from "../../components/ProcessTimeline";
 import { BRAND } from "../../lib/brand";
 import { MFG_STEPS } from "../../lib/data";
 
@@ -36,29 +36,17 @@ export default function ManufacturingPage() {
 
         <MachineAnimation />
 
-        <section className="sec alt-sec">
-          <div className="wrap mfg-list">
-            {MFG_STEPS.map((step) => (
-              <article className="mfg-item" key={step.n} data-reveal>
-                <div className="mfg-head">
-                  <span className="mfg-num">{step.n}</span>
-                  <span className="pr-ico"><Icon name={step.icon} size={28} /></span>
-                </div>
-                <div className="mfg-body">
-                  <h3>{step.t}</h3>
-                  <p className="body-p">{step.d}</p>
-                  <p className="note" style={{ marginTop: "0.75rem" }}>{step.detail}</p>
-                </div>
-                {step.img && (
-                  <div className="mfg-media">
-                    <img src={step.img} alt={step.alt || step.t} loading="lazy" decoding="async" width="1200" height="675" />
-                    {step.illustrative && <span className="img-badge">Illustrative visual</span>}
-                  </div>
-                )}
-              </article>
-            ))}
-          </div>
-        </section>
+        <ProcessTimeline
+          id="stages"
+          steps={MFG_STEPS}
+          eyebrow="7-stage workflow"
+          heading={
+            <>
+              From field waste to <span className="ember-t">white coal</span>.
+            </>
+          }
+          showCta={false}
+        />
 
         <section className="sec">
           <div className="wrap">

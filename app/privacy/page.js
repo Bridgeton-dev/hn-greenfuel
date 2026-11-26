@@ -1,5 +1,6 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import LegalDoc from "../../components/LegalDoc";
 import { BRAND } from "../../lib/brand";
 
 export const metadata = {
@@ -8,51 +9,135 @@ export const metadata = {
   alternates: { canonical: "/privacy" },
 };
 
+const PRIVACY_SECTIONS = [
+  {
+    num: "01",
+    id: "introduction",
+    title: "Introduction",
+    paragraphs: [
+      `This policy explains how ${BRAND.legalName} handles information received through this website.`,
+    ],
+  },
+  {
+    num: "02",
+    id: "information-collected",
+    title: "Information we collect",
+    paragraphs: [
+      "We collect details you submit directly and basic technical information when you visit the website:",
+    ],
+    bullets: [
+      "Name, company or mill name, phone number and email address.",
+      "Location, product or tonnage requirement and enquiry messages.",
+      "Basic technical data such as browser and device details.",
+    ],
+  },
+  {
+    num: "03",
+    id: "how-we-use",
+    title: "How we use it",
+    paragraphs: ["We use the information received to:"],
+    bullets: [
+      "Answer enquiries and prepare quotations.",
+      "Process orders and coordinate dispatch logistics.",
+      "Improve the website, prevent misuse and meet legal duties.",
+    ],
+  },
+  {
+    num: "04",
+    id: "consent",
+    title: "Consent",
+    paragraphs: [
+      "By submitting a form, you agree to be contacted about your enquiry. You may withdraw consent by writing to us.",
+    ],
+  },
+  {
+    num: "05",
+    id: "cookies",
+    title: "Cookies",
+    paragraphs: [
+      "The website may use cookies or similar tools for essential functions and, where used, analytics.",
+    ],
+  },
+  {
+    num: "06",
+    id: "sharing",
+    title: "Sharing",
+    paragraphs: [
+      "We do not sell personal information. We may share it with service providers, transport partners or authorities when needed.",
+    ],
+  },
+  {
+    num: "07",
+    id: "third-party",
+    title: "Third-party services",
+    paragraphs: [
+      "WhatsApp, maps and other external services follow their own policies.",
+    ],
+  },
+  {
+    num: "08",
+    id: "retention",
+    title: "Retention",
+    paragraphs: [
+      "We keep information only as long as needed for these purposes or required by law.",
+    ],
+  },
+  {
+    num: "09",
+    id: "security",
+    title: "Security",
+    paragraphs: [
+      "We use reasonable safeguards, but no online system is completely secure.",
+    ],
+  },
+  {
+    num: "10",
+    id: "your-choices",
+    title: "Your choices",
+    paragraphs: [
+      "You may ask to access, correct or delete your information, subject to law.",
+    ],
+  },
+  {
+    num: "11",
+    id: "children",
+    title: "Children",
+    paragraphs: [
+      "This website is intended for business users and not for children.",
+    ],
+  },
+  {
+    num: "12",
+    id: "changes",
+    title: "Changes",
+    paragraphs: [
+      "Updates will appear on this page with a new date.",
+    ],
+  },
+  {
+    num: "13",
+    id: "contact",
+    title: "Contact",
+    paragraphs: [
+      `For privacy questions or requests, please reach out to ${BRAND.legalName} using the contact details below or via our Contact page.`,
+    ],
+  },
+];
+
 export default function PrivacyPage() {
   return (
     <>
       <Header />
       <main className="page-main">
-        <section className="page-hero">
-          <div className="wrap">
-            <p className="eyebrow">Legal</p>
-            <h1 className="h2">Privacy Policy</h1>
-            <p className="sec-lede">Effective year: {BRAND.year}</p>
-          </div>
-        </section>
-
-        <section className="sec alt-sec">
-          <div className="wrap legal-content">
-            <h2>1. Information We Collect</h2>
-            <p>
-              When you submit an enquiry, trial request or raw-material supplier registration on {BRAND.name} ({BRAND.legalName}), we collect the business contact details you enter: name, company or mill name, mobile number, email address, product interest, monthly tonnage estimate, delivery city and message notes.
-            </p>
-
-            <h2>2. How We Use Your Information</h2>
-            <ul>
-              <li>To respond to quotation requests, sample trial bookings and feedstock supply proposals.</li>
-              <li>To advise on suitable biomass briquette or pellet grades and dispatch logistics.</li>
-              <li>To communicate via phone, email or WhatsApp when you initiate contact.</li>
-            </ul>
-
-            <h2>3. Data Sharing &amp; Storage</h2>
-            <p>
-              We do not sell, rent or trade your contact details to third-party marketers. Information is used strictly for commercial communication and operational logistics with {BRAND.legalName}.
-            </p>
-
-            <h2>4. External Services</h2>
-            <p>
-              Choosing &ldquo;Send on WhatsApp&rdquo; or &ldquo;Open Google Maps&rdquo; opens third-party platforms governed by their respective privacy policies.
-            </p>
-
-            <h2>5. Contact &amp; Updates</h2>
-            <p>
-              To update or delete enquiry details you previously shared, please reach out to {BRAND.legalName} via our{" "}
-              <a href="/contact" style={{ color: "var(--ember-2)", textDecoration: "underline" }}>Contact page</a>
-              {BRAND.email ? ` or at ${BRAND.email}` : ""}.
-            </p>
-          </div>
-        </section>
+        <LegalDoc
+          title="Privacy Policy"
+          sections={PRIVACY_SECTIONS}
+          contactExtra={
+            BRAND.grievanceContact
+              ? [["Grievance Contact", BRAND.grievanceContact]]
+              : []
+          }
+        />
       </main>
       <Footer />
     </>
