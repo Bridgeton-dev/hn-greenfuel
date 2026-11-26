@@ -88,7 +88,24 @@ export default function Contact({ product, size, defaultKind = "quote", heading 
     const p = params.get("product");
     const s = params.get("size");
     const tr = params.get("trial") === "1";
+    const ind = params.get("industry");
+    const fl = params.get("fuel");
     if (p || tr) applyPrefill(p || "", s || "", tr);
+    else if (ind || fl) {
+      const lower = (fl || "").toLowerCase();
+      const guess = lower.includes("pellet")
+        ? "Biomass pellets · 6 mm"
+        : lower.includes("rice husk")
+          ? "Rice husk briquettes · 70 mm"
+          : lower.includes("agro")
+            ? "Agro-mix briquettes · 70 mm"
+            : "Sawdust briquettes · 70 mm";
+      setV((o) => ({
+        ...o,
+        product: OPTIONS.includes(guess) ? guess : o.product,
+        msg: o.msg || `Industry: ${ind || "Industrial"}${fl ? ` (Suggested fuel: ${fl})` : ""}.`,
+      }));
+    }
 
     const onEnquire = (ev) => {
       const { product: ep, size: es } = ev.detail || {};

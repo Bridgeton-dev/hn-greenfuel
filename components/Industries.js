@@ -11,17 +11,23 @@ export default function Industries() {
         <div className="sec-head">
           <div>
             <p className="eyebrow" data-reveal>Industries served</p>
-            <Split className="h2" text="Wherever there's a furnace." />
+            <Split className="h2" text="Wherever there's heat to make." />
           </div>
-          <p className="sec-lede" data-reveal>Briquettes and pellets replace coal, firewood and furnace oil in most solid-fuel thermal plants.</p>
+          <p className="sec-lede" data-reveal>
+            Biomass briquettes and pellets for suitable boilers, kilns and furnaces.
+          </p>
         </div>
-        <ul className="igrid">
+        <ul className="igrid-v2">
           {INDUSTRIES.map((x, i) => (
-            <li className="itile" key={x.t} data-reveal tabIndex={0}>
-              <span className="it-n">{String(i + 1).padStart(2, "0")}</span>
-              <span className="it-ico"><Icon name={x.icon} size={40} /></span>
-              <h3>{x.t}</h3>
-              <div className="it-rev"><p>{x.d}</p></div>
+            <li className="icard" key={x.slug} data-reveal>
+              <Link href={`/industries#${x.slug}`} className="icard-in">
+                <span className="icard-top">
+                  <span className="icard-ico"><Icon name={x.icon} size={28} /></span>
+                  <span className="icard-num">{String(i + 1).padStart(2, "0")}</span>
+                </span>
+                <h3 className="icard-title">{x.t}</h3>
+                <p className="icard-line">{x.short}</p>
+              </Link>
             </li>
           ))}
         </ul>
