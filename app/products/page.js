@@ -3,7 +3,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Split from "../../components/Split";
 import CoalComparison from "../../components/CoalComparison";
-import { Arrow } from "../../components/Hero";
+import ProductCard from "../../components/ProductCard";
 import { BRAND } from "../../lib/brand";
 import { PRODUCTS } from "../../lib/data";
 
@@ -37,29 +37,7 @@ export default function ProductsPage() {
           <div className="wrap prod-wrap">
             <div className="pgrid-compact">
               {PRODUCTS.map((p) => (
-                <article className="pc-c" key={p.id} data-reveal>
-                  <Link href={`/products/${p.slug}`} className="pc-c-media">
-                    <img src={p.img} alt={p.alt} loading="lazy" decoding="async" width="800" height="600" />
-                  </Link>
-                  <div className="pc-c-body">
-                    <h2 className="pc-c-title"><Link href={`/products/${p.slug}`}>{p.name}</Link></h2>
-                    <p className="pc-c-desc">{p.blurb}</p>
-                    <div className="pc-c-spec">
-                      <span>{p.specs[0][1].replace(" kcal/kg", "")} kcal/kg</span>
-                      <span>Ash {p.specs[2][1]}</span>
-                    </div>
-                    <div className="pc-c-sizes">
-                      {p.sizes.map((s) => (
-                        <span key={s} className="size-tag">{s.replace(" mm", "mm")}</span>
-                      ))}
-                    </div>
-                    <div className="pc-c-foot">
-                      <Link href={`/products/${p.slug}`} className="btn btn-ember btn-block pc-c-btn">
-                        Specs &amp; details <Arrow />
-                      </Link>
-                    </div>
-                  </div>
-                </article>
+                <ProductCard key={p.id} p={p} headingAs="h2" />
               ))}
             </div>
           </div>
