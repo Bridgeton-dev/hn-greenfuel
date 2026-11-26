@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import Icon from "../../components/Icons";
 import Split from "../../components/Split";
 import { Arrow } from "../../components/Hero";
+import MachineAnimation from "../../components/MachineAnimation";
 import { BRAND } from "../../lib/brand";
 import { MFG_STEPS } from "../../lib/data";
 
@@ -32,6 +33,8 @@ export default function ManufacturingPage() {
             </p>
           </div>
         </section>
+
+        <MachineAnimation />
 
         <section className="sec alt-sec">
           <div className="wrap mfg-list">
